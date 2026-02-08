@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reelin In the Ears</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="search.html">Existing Songlist</a>
+        <a href="watchlist.html">Watch List</a>
+        <a href="help.html">Help Page</a>
+    </nav>
+        <h1>Movie Watch List</h1>
+    </header>
+    <p>Here is your curated movie list!</p>
+    <menu id='movielist'></menu>
+    <li class='film-row'>
+        <button hidden class='delete'></button>
+    </li>
+    <dialog class='delete-popup'>
+      <p class='dialog-text'></p>
+      <button hidden class='confirm'>Confirm</button>
+      <button hidden class='cancel'>Cancel</button>
+    </dialog>
+    <script src="watchlist.js"></script>
+</body>
+</html>

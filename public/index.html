@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reelin In the Ears</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="search.html">Song Library</a>
+        <a href="watchlist.html">Watch List</a>
+        <a href="help.html">Help Page</a>
+    </nav>
+        <h1>Reelin In the Ears</h1>
+        <h2>Welcome to your reverse song-to-movie search app.</h2>
+    </header>
+    <p>Search your favorite songs to get recommendations for movies that 
+        feature them. Add movies that interest you to your own personal 
+        watchlist.
+    </p>
+    <form id="searchForm">
+        <label for="stitle">Song Title:</label><br>
+        <input type="text" id="stitle" name="stitle"><br>
+        <label for="aname">Artist Name:</label><br>
+        <input type="text" id="aname" name="aname"><br>
+        <button type="submit" id="submitButton">Submit</button>
+        <p id="output"></p>
+    </form>
+    <script src="app.js"></script>
+</body>
+</html>
