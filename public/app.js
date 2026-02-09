@@ -9,31 +9,35 @@ function populateData(data) {
     }
     else {
         data.forEach(film => {
-            const filmDiv = document.createElement('div');
-            filmDiv.setAttribute('id', `div-${film.film_id}`);
-            const watchListButton = document.createElement('button');
-            watchListButton.textContent = 'Add to Watchlist';
-
-            filmDiv.innerText =
-            `Title: ${film.title} Year: ${film.year} Genre: ${film.genre} 
-            Director: ${film.director}`
-            
-            watchListButton.addEventListener('click', (event) => {
-                event.preventDefault();
-                addToWatchList(film.film_id);
-            })
-        
-            outputArea.appendChild(filmDiv);
-            filmDiv.appendChild(watchListButton);
+            addFilmRow(film);
         });
     }
+}
+
+function addFilmRow(film) {
+    const filmDiv = document.createElement('div');
+    filmDiv.setAttribute('id', `div-${film.film_id}`);
+    const watchListButton = document.createElement('button');
+    watchListButton.textContent = 'Add to Watchlist';
+
+    filmDiv.innerText =
+    `Title: ${film.title} Year: ${film.year} 
+    Genre: ${film.genre} Director: ${film.director}`
+    
+    watchListButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        addToWatchList(film.film_id);
+    })
+
+    outputArea.appendChild(filmDiv);
+    filmDiv.appendChild(watchListButton);
 }
 
 function addToWatchList(filmId) {
     fetch('http://localhost:8000/add-movie',{
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify( {film_id : filmId})
+        body: JSON.stringify( {film_id : filmId} )
     })
     .then(response => response.json())
     .then(data => {

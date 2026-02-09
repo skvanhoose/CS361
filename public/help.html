@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Reelin In the Ears</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+    <style>
+    body {
+    font-family: "Audiowide", sans-serif;
+    }
+    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
@@ -16,5 +23,21 @@
         <h1>Reelin In the Ears</h1>
         <h2>Welcome to your reverse song-to-movie search app.</h2>
     </header>
+    <p>Search for movies manually in the home page by entering a 
+        song/artist of your choice. If you receive results, you can add
+        movies to your very own watchlist. 
+    </p>
+    <p>If you need inspiration, you can browse a pre-exisiting library 
+        of artists and songs to find movies that way.
+    </p>
+    <p>Access the watch list page to view your movie selections and 
+        delete them if needed.
+    </p>
+    <label id="comments">Questions/ Comments/ Concerns?</label>
+    <br>
+        <textarea id="comments" name="comments" rows="4" cols="50"></textarea>
+        <br>
+        <button id="comments-submit">Submit your message</button>
+    <script type="module" src="help.js"></script>
 </body>
 </html>

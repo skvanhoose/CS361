@@ -78,6 +78,7 @@ async function getLibrary() {
         `SELECT
             a.name, 
             s.title AS song, 
+            f.film_id,
             f.title, 
             f.year,
             f.genre,
@@ -89,7 +90,8 @@ async function getLibrary() {
         INNER JOIN
 	        soundtrack AS st ON s.song_id = st.song_id
         INNER JOIN 
-	        films as f ON st.film_id = f.film_id;`
+	        films as f ON st.film_id = f.film_id
+        ORDER by a.name ASC;`
     );
     client.release();
     return data;
@@ -154,8 +156,12 @@ app.delete('/delete-movie/:id', async (req,res) => {
 
 
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}...`);
   });
+
+server.on('error', err => {
+  console.error('Server error:', err);
+});
 
 
