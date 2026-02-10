@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const routes = require('./src/routes')
 const pool = require('./database');
 const { error } = require('console');
 const PORT = 8000;
@@ -151,6 +150,16 @@ app.delete('/delete-movie/:id', async (req,res) => {
         res.status(200).send('ok');
     } catch (e) {
         res.json('An error occurred retrieving your watchlist')
+    }
+});
+
+app.post('/post-comment', async (req,res) => {
+    console.log(req.body.feedback);
+    try {
+        res.json('Request processed');
+        return
+    } catch (e) {
+        res.json('An error occurred submitting feedback');
     }
 });
 
