@@ -1,5 +1,6 @@
 const myLibrary = document.getElementById('song-library');
 
+
 function addButtonEvent(watchListButton, film_id, artistRowId, songRowId) {
     watchListButton.addEventListener('click', (event) => {
         event.preventDefault();
@@ -64,31 +65,51 @@ function generateWatchList(data) {
         }
 
         // movie row
-        const movieRow = document.createElement('p');
+        const movieRow = document.createElement('table');
+        songRow.appendChild(movieRow);
         movieRow.setAttribute('class', 'movie-level');
         movieRow.setAttribute('id', `movie-${artist.film_id}`);
-        movieRow.innerText =
-        `Title: ${artist.title} Year: ${artist.year} Genre: ${artist.genre} Director: ${artist.director}`
+
+        const movieRowLine = document.createElement('tr');
+        movieRow.appendChild(movieRowLine);
+
+        const movieTitle = document.createElement('td');
+        movieTitle.innerText = artist.title;
+        movieRowLine.appendChild(movieTitle);
+
+        const movieYear = document.createElement('td');
+        movieYear.innerText = artist.year;
+        movieRowLine.appendChild(movieYear);
+
+        const movieGenre = document.createElement('td');
+        movieGenre.innerText = artist.genre;
+        movieRowLine.appendChild(movieGenre);
+
+        const movieDirector = document.createElement('td');
+        movieDirector.innerText = artist.director;
+        movieRowLine.appendChild(movieDirector);
 
         //movie row button
+        const movieAdd = document.createElement('td');
         const watchListButton = document.createElement('button');
         watchListButton.textContent = 'Add to Watchlist';
+        movieAdd.appendChild(watchListButton);
+        movieRowLine.appendChild(movieAdd);
         addButtonEvent(watchListButton, artist.film_id, artistRow.id, songRow.id);
 
         // Add movies to the page
         songRow.appendChild(movieRow);
-        movieRow.appendChild(watchListButton);
         })
 }
 
 
-fetch('http://localhost:8000/view-library')
+fetch('http://localhost:3000/view-library')
 .then(response => response.json())
 .then(data => {
     generateWatchList(data)});
 
 function addWatchList(filmId, artistRowId, songRowId) {
-    fetch('http://localhost:8000/add-movie',{
+    fetch('http://localhost:3000/add-movie',{
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify( {film_id : filmId} )
@@ -96,8 +117,6 @@ function addWatchList(filmId, artistRowId, songRowId) {
     .then(response => response.json())
     .then(data => {
         alert(data);
-        console.log(artistRowId);
-        console.log(songRowId);
         const songSearch = document.getElementById(songRowId);
         songSearch.open = false;
         const artistSearch = document.getElementById(artistRowId);

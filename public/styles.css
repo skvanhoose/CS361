@@ -1,6 +1,29 @@
+.logout-button {
+    margin-left: 10px;
+}
+
 body {
     font-family: "Rubik", sans-serif;
     background-color: #e1f16b
+}
+
+caption { 
+    text-align: left;
+}
+
+table {
+  border: 1px solid black;
+  text-align: left;
+  vertical-align: auto;
+}
+
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+
+tr {
+      vertical-align: top;
 }
 
 .song-level {
@@ -8,11 +31,5 @@ body {
 }
 
 .movie-level {
-    text-indent: 4em;
-}
-
-.text-me-one-regular {
-  font-family: "Text Me One", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+    margin-left: 65px;
 }

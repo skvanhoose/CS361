@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reelin In the Ears</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header>
+    <nav>
+        <a href="/private/dashboard">Home</a>
+        <a href="/private/search">Song Library</a>
+        <a href="/private/watchlist">Watch List</a>
+        <a href="/private/help">Help Page</a>
+        <button class="logout-button">Logout</button>
+    </nav>
+        <h1>Reelin In the Ears</h1>
+        <h2>Welcome to your reverse song-to-movie search app.</h2>
+    </header>
+    <p>Here is your curated movie list!</p>
+     <table id="movie-table">
+        <caption id="table-caption">Movie Watchlist</caption>
+        <tr>
+            <th class="title-header">Title</th>
+            <th class="year-header">Year</th>
+            <th class="genre-header">Genre</th>
+            <th class="director-header">Director</th>
+            <th>Keep?</th>
+        </tr>
+    <tr class="film-row">
+        <td hidden class="title-column"></td>
+        <td hidden class="year-column"></td>
+        <td hidden class="genre-column"></td>
+        <td hidden class="director-column"></td>
+        <td hidden class="delete-column"><button class='delete'>Delete</button></td>
+    </tr>
+    <dialog class='delete-popup'>
+      <p class='dialog-text'></p>
+      <button hidden class='confirm'>Confirm</button>
+      <button hidden class='cancel'>Cancel</button>
+    </dialog>
+    <script src="/private/watchlist.js"></script>
+    <script src="/private/logout.js"></script>
+</body>
+</html>

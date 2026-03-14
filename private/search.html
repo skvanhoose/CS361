@@ -5,21 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reelin In the Ears</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
     <header>
         <nav>
-            <a href="index.html">Home</a>
-            <a href="search.html">Song Library</a>
-            <a href="watchlist.html">Watch List</a>
-            <a href="help.html">Help Page</a>
+            <a href="/private/dashboard">Home</a>
+            <a href="/private/search">Song Library</a>
+            <a href="/private/watchlist">Watch List</a>
+            <a href="/private/help">Help Page</a>
+            <button class="logout-button">Logout</button>
         </nav>
         <h1>Song Library</h1>
         <h2>Welcome to your reverse song-to-movie search app.</h2>
     </header>
     <div id="song-library">
     </div>
-    <script type="module" src="search.js"></script>
+    <script type="module" src="/private/search.js"></script>
+    <script src="/private/logout.js"></script>
 </body>
 </html>

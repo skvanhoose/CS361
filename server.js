@@ -3,10 +3,79 @@ const app = express();
 const path = require('path');
 const pool = require('./database');
 const { error } = require('console');
-const PORT = 8000;
+const cookieParser = require('cookie-parser');
+const PORT = 3000;
 
-app.use(express.static(path.join(__dirname,'public')));
-app.use(express.json()); 
+
+app.use(cookieParser());
+app.use(express.json());
+
+// Display all public files freely
+app.use(express.static(path.join(__dirname, 'public'), {
+  extensions: ['html']
+}));
+
+
+// Check whether there is an active login session
+async function isLoggedIn(req, res, next) {
+    const access_token = req.cookies.access_token;
+
+    const response = await fetch('http://localhost:8000/validate-token',
+    {
+        mode: 'cors',
+        method: 'POST',
+        headers: {
+        "Content-Type": "application/json",
+        },
+        credentials: 'include',
+        body: JSON.stringify({token: access_token})
+    })
+    // token is valid
+    if (response.status === 200) next();
+    // token got regenerated
+    else if (response.status === 201) {
+        const data = await response.json();
+        // call login service directly from here
+        const newCookie = await fetch('http://localhost:4000/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: data.email, jti: data.jti, refresh: data.refresh })
+        });
+        const cookie = newCookie.headers.get('set-cookie');
+        if (cookie) {
+            res.set('Set-Cookie', cookie);
+        }
+        next();
+    } else {
+        // Initiate revocation and return to login page if some other response
+        const tokenRevoke = await fetch('http://localhost:5001/revoke', {
+            mode: 'cors',
+            method: 'POST',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token: my_token, reason: "logout" }),
+        });
+        res.clearCookie('access_token', {
+        httpOnly: true,
+        });
+        return res.redirect('http://localhost:3000/');
+    }};
+
+const protectedPages = ['dashboard', 'help', 'search', 'watchlist']; 
+const protectedAssets = ['dashboard.js', 'help.js', 'search.js', 'watchlist.js', 'logout.js', 'download.js']; 
+
+protectedPages.forEach(page => {
+    app.get(`/private/${page}`, isLoggedIn, (req, res) => {
+        res.sendFile(path.join(__dirname, 'private', `${page}.html`));
+    });
+});
+
+protectedAssets.forEach(asset => {
+    app.get(`/private/${asset}`, (req, res) => {
+        res.sendFile(path.join(__dirname, 'private', asset));
+    });
+});
+
 
 async function getArtists(title, artist) {
     const client = await pool.connect();
@@ -96,6 +165,7 @@ async function getLibrary() {
     return data;
 }
 
+
 app.post('/get-movie', async (req,res) => {
     const search = req.body;
     const title = search.title;
@@ -136,7 +206,6 @@ app.get('/view-watchlist', async (req,res) => {
 app.get('/view-library', async (req,res) => {
     try {
         const data = await getLibrary();
-        //console.log(data);
         res.json(data);
     } catch (e) {
         res.json('An error occurred retrieving your library')
@@ -154,7 +223,6 @@ app.delete('/delete-movie/:id', async (req,res) => {
 });
 
 app.post('/post-comment', async (req,res) => {
-    console.log(req.body.feedback);
     try {
         res.json('Request processed');
         return
@@ -162,8 +230,6 @@ app.post('/post-comment', async (req,res) => {
         res.json('An error occurred submitting feedback');
     }
 });
-
-
 
 const server = app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}...`);

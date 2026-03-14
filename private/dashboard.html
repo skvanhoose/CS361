@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reelin In the Ears</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header>
+    <nav>
+        <a href="/private/dashboard">Home</a>
+        <a href="/private/search">Song Library</a>
+        <a href="/private/watchlist">Watch List</a>
+        <a href="/private/help">Help Page</a>
+        <button class="logout-button">Logout</button>
+    </nav>
+        <h1>Reelin In the Ears</h1>
+        <h2>Welcome to your reverse song-to-movie search app.</h2>
+    </header>
+    <p>Search your favorite songs to get recommendations for movies that 
+        feature them. Add movies that interest you to your own personal 
+        watchlist.
+    </p>
+    <form id="searchForm">
+        <label for="stitle">Song Title:</label><br>
+        <input type="text" id="stitle" name="stitle"><br>
+        <label for="aname">Artist Name:</label><br>
+        <input type="text" id="aname" name="aname"><br>
+        <button type="submit" id="submitButton">Submit</button>
+    </form>
+    <table hidden id="movie-table">
+        <tr>
+            <th class="title-header">Title</th>
+            <th class="year-header">Year</th>
+            <th class="genre-header">Genre</th>
+            <th class="director-header">Director</th>
+            <th class="button-header">Add?</th>
+        </tr>
+    </table>
+    <script type="module" src="/private/dashboard.js"></script>
+    <script src="/private/logout.js"></script>
+</body>
+</html>
